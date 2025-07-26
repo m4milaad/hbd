@@ -4,311 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For My Love</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
-    <style>
-        :root {
-            --bg-color: #2C001E; /* Deep Plum */
-            --primary-color: #E94560; /* Vibrant Rose */
-            --secondary-color: #461220; /* Dark Reddish Brown */
-            --text-color: #FADADD; /* Soft Pinkish White */
-            --highlight-color: #FF69B4; /* Deep Pink / Rose Gold */
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Poppins', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: var(--font-body);
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            text-align: center;
-        }
-        
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        .page-container {
-            position: relative;
-            z-index: 1;
-            padding: 20px;
-            background: rgba(44, 0, 30, 0.85);
-            backdrop-filter: blur(8px);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            max-width: 90vw;
-            width: 100%;
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
-            border: 1px solid rgba(255, 105, 180, 0.2);
-        }
-
-        h1, h2 {
-            font-family: var(--font-heading);
-            color: var(--highlight-color);
-            font-weight: 700;
-            text-shadow: 0 0 10px var(--highlight-color);
-        }
-
-        h1 { font-size: 2.8rem; margin-bottom: 10px; }
-        h2 { font-size: 2.2rem; }
-        p { font-size: 1.1rem; line-height: 1.6; }
-
-        #countdown-container h2 {
-            font-size: 1.5rem;
-            font-weight: 400;
-            font-style: italic;
-            opacity: 0.9;
-        }
-
-        #timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .timer-box {
-            background: var(--secondary-color);
-            padding: 15px;
-            border-radius: 10px;
-            min-width: 80px;
-            border: 1px solid rgba(255, 105, 180, 0.3);
-        }
-
-        .timer-box span {
-            display: block;
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--highlight-color);
-        }
-
-        .timer-box p {
-            margin: 0;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.8;
-        }
-        
-        .reveal-button, .nav-button {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            padding: 15px 30px;
-            border-radius: 50px;
-            border: 2px solid var(--highlight-color);
-            background: transparent;
-            color: var(--highlight-color);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .reveal-button {
-             animation: pulse 2s infinite;
-        }
-
-        .reveal-button:hover, .nav-button:hover {
-            background: var(--highlight-color);
-            color: var(--bg-color);
-            box-shadow: 0 0 25px var(--highlight-color);
-        }
-        
-        #go-back-button {
-            margin-top: 30px;
-            font-size: 1.0rem;
-            padding: 10px 20px;
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 10px 20px rgba(255, 105, 180, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
-        }
-
-        .page-container.hidden, .hidden {
-            display: none !important;
-        }
-        
-        .fade-out {
-            opacity: 0;
-            pointer-events: none;
-            transform: scale(0.95);
-        }
-
-        #carousel-page {
-            max-width: 95vw;
-            width: 1200px;
-        }
-
-        .carousel-story-wrapper {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .carousel-container {
-            flex: 1;
-            max-width: 400px;
-            height: 80vh;
-            max-height: 700px;
-            border-radius: 15px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .carousel-track {
-            display: flex;
-            height: 100%;
-            transition: transform 0.8s ease-in-out;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-            box-sizing: border-box;
-            position: relative;
-        }
-
-        .carousel-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #000;
-        }
-        
-        .carousel-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            padding: 15px;
-            font-size: 1rem;
-            font-style: italic;
-        }
-
-        #story-box {
-            flex: 1.5;
-            text-align: left;
-            padding: 20px 30px;
-            height: 80vh;
-            max-height: 700px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: rgba(0,0,0,0.2);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 105, 180, 0.2);
-        }
-
-        #story-text {
-            font-size: 1.2rem;
-            font-style: italic;
-            line-height: 1.7;
-            margin: 0;
-            opacity: 1;
-            transition: opacity 0.4s ease-in-out;
-            flex-grow: 1;
-            overflow-y: auto;
-        }
-
-        #story-text.fading {
-            opacity: 0;
-        }
-        
-        .carousel-controls {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        
-        .carousel-controls.first-slide {
-            justify-content: flex-end;
-        }
-        
-        .nav-button {
-            font-size: 1.2rem;
-            padding: 12px 25px;
-        }
-        
-        /* NEW: Access Code Page Styles */
-        #access-code-page {
-            width: 500px;
-        }
-        #access-code-input {
-            font-family: var(--font-body);
-            font-size: 1.5rem;
-            text-align: center;
-            background: var(--secondary-color);
-            color: var(--text-color);
-            border: 2px solid var(--highlight-color);
-            border-radius: 10px;
-            padding: 10px;
-            margin: 20px 0;
-            width: 80%;
-        }
-        #access-code-input:focus {
-            outline: none;
-            box-shadow: 0 0 15px var(--highlight-color);
-        }
-        #access-error {
-            color: var(--primary-color);
-            min-height: 1.2em;
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .carousel-story-wrapper {
-                flex-direction: column;
-            }
-            .carousel-container {
-                height: 50vh;
-                width: 100%;
-                max-width: 100%;
-            }
-            #story-box {
-                height: auto;
-                max-height: 35vh;
-                margin-top: 20px;
-            }
-        }
-
-    </style>
 </head>
 <body>
+    <!-- The animated aurora background is handled by CSS -->
     <div id="particles-js"></div>
 
     <div id="countdown-container" class="page-container">
         <h2>A surprise for my love is counting down...</h2>
-        <div id="timer">
-            <div class="timer-box"><span id="days">00</span><p>Days</p></div>
-            <div class="timer-box"><span id="hours">00</span><p>Hours</p></div>
-            <div class="timer-box"><span id="minutes">00</span><p>Minutes</p></div>
-            <div class="timer-box"><span id="seconds">00</span><p>Seconds</p></div>
+        <div id="timer" class="art-timer">
+            <!-- Days -->
+            <div class="timer-circle">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress-bar" id="days-progress" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="timer-text">
+                    <span id="days">00</span>
+                    <p>Days</p>
+                </div>
+            </div>
+            <!-- Hours -->
+            <div class="timer-circle">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress-bar" id="hours-progress" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="timer-text">
+                    <span id="hours">00</span>
+                    <p>Hours</p>
+                </div>
+            </div>
+            <!-- Minutes -->
+            <div class="timer-circle">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress-bar" id="minutes-progress" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="timer-text">
+                    <span id="minutes">00</span>
+                    <p>Minutes</p>
+                </div>
+            </div>
+            <!-- Seconds -->
+            <div class="timer-circle">
+                <svg width="160" height="160" viewBox="0 0 160 160">
+                    <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
+                    <circle class="progress-bar" id="seconds-progress" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="timer-text">
+                    <span id="seconds">00</span>
+                    <p>Seconds</p>
+                </div>
+            </div>
         </div>
     </div>
     
-    <!-- NEW: Access Code Page -->
     <div id="access-code-page" class="page-container hidden">
         <h2>A Special Key is Required</h2>
         <p>Please enter the access code to unlock your surprise.</p>
@@ -321,7 +76,6 @@
         <div class="carousel-story-wrapper">
             <div class="carousel-container">
                 <div class="carousel-track">
-                    <!-- YOUR 5 PHOTOS AND STORIES -->
                     <div class="carousel-slide" data-story="That day that both of us were ill is always going to be special for me. Although both of us were ill, we were with each other throughout the entire day, and I felt totally at ease with you. The manner in which you took care of me, asking me if I was fine and whether I was okay, even when you were also not well, touched my heart a lot. Your kindness and soft care meant a great deal to me. It demonstrated how much you care, and made me feel even nearer to you. I will always treasure that day and the warmth we had, even during our weakest moments.">
                         <img src="images/bffs.jpg" alt="Memory 1" onerror="this.onerror=null;this.src='https://placehold.co/1080x1920/e94560/white?text=Add+Your+Photo+1';">
                         <div class="carousel-caption">The day it all began.</div>
@@ -363,185 +117,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const birthdayTime = new Date('2025-07-21T00:00:00');
-            const ACCESS_CODE = 'HDBnimra'; // The correct access code
-
-            const countdownContainer = document.getElementById('countdown-container');
-            const carouselPage = document.getElementById('carousel-page');
-            const birthdayWishPage = document.getElementById('birthday-wish-page');
-            const goBackButton = document.getElementById('go-back-button');
-            const storyText = document.getElementById('story-text');
-            const daysEl = document.getElementById('days');
-            const hoursEl = document.getElementById('hours');
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            const carouselTrack = document.querySelector('.carousel-track');
-            const slides = Array.from(carouselTrack.children);
-            
-            // NEW: Access Code Elements
-            const accessCodePage = document.getElementById('access-code-page');
-            const accessCodeInput = document.getElementById('access-code-input');
-            const submitCodeButton = document.getElementById('submit-code-button');
-            const accessError = document.getElementById('access-error');
-
-            const prevButton = document.getElementById('prev-button');
-            const nextButton = document.getElementById('next-button');
-            const showWishButton = document.getElementById('show-wish-button');
-            const controlsContainer = document.querySelector('.carousel-controls');
-
-            let timeCheckInterval;
-            let musicSynth;
-            let currentSlide = 0;
-
-            function setupMusic() {
-                if (musicSynth) return;
-                musicSynth = new Tone.PolySynth(Tone.Synth, {
-                    oscillator: { type: 'fmsine' },
-                    envelope: { attack: 0.1, decay: 0.2, sustain: 0.5, release: 1 }
-                }).toDestination();
-                musicSynth.volume.value = -10;
-            }
-            
-            function playMusic() {
-                if (Tone.context.state !== 'running') {
-                    Tone.start();
-                }
-                const melody = [
-                    { note: 'C4', duration: '8n', time: 0 }, { note: 'C4', duration: '8n', time: 0.25 }, { note: 'D4', duration: '4n', time: 0.5 }, { note: 'C4', duration: '4n', time: 1 }, { note: 'F4', duration: '4n', time: 1.5 }, { note: 'E4', duration: '2n', time: 2 },
-                    { note: 'C4', duration: '8n', time: 3 }, { note: 'C4', duration: '8n', time: 3.25 }, { note: 'D4', duration: '4n', time: 3.5 }, { note: 'C4', duration: '4n', time: 4 }, { note: 'G4', duration: '4n', time: 4.5 }, { note: 'F4', duration: '2n', time: 5 },
-                    { note: 'C4', duration: '8n', time: 6 }, { note: 'C4', duration: '8n', time: 6.25 }, { note: 'C5', duration: '4n', time: 6.5 }, { note: 'A4', duration: '4n', time: 7 }, { note: 'F4', duration: '4n', time: 7.5 }, { note: 'E4', duration: '4n', time: 8 }, { note: 'D4', duration: '2n', time: 8.5 },
-                    { note: 'Bb4', duration: '8n', time: 9.5 }, { note: 'Bb4', duration: '8n', time: 9.75 }, { note: 'A4', duration: '4n', time: 10 }, { note: 'F4', duration: '4n', time: 10.5 }, { note: 'G4', duration: '4n', time: 11 }, { note: 'F4', duration: '2n', time: 11.5 }
-                ];
-                new Tone.Part((time, value) => { musicSynth.triggerAttackRelease(value.note, value.duration, time); }, melody).start(0);
-                Tone.Transport.start();
-            }
-
-            function showSlide(index) {
-                const activeSlide = slides[index];
-                carouselTrack.style.transform = `translateX(-${index * 100}%)`;
-
-                const newStory = activeSlide.dataset.story || "";
-                storyText.classList.add('fading');
-                setTimeout(() => {
-                    storyText.textContent = newStory;
-                    storyText.classList.remove('fading');
-                }, 400);
-
-                prevButton.classList.toggle('hidden', index === 0);
-                nextButton.classList.toggle('hidden', index === slides.length - 1);
-                showWishButton.classList.toggle('hidden', index !== slides.length - 1);
-                
-                controlsContainer.classList.toggle('first-slide', index === 0);
-            }
-
-            function transitionTo(pageToShow) {
-                const pages = [countdownContainer, accessCodePage, carouselPage, birthdayWishPage];
-                pages.forEach(page => {
-                    if (page !== pageToShow) {
-                        page.classList.add('fade-out');
-                        setTimeout(() => page.classList.add('hidden'), 1500);
-                    }
-                });
-                
-                setTimeout(() => {
-                    pageToShow.classList.remove('hidden');
-                    setTimeout(() => pageToShow.classList.remove('fade-out'), 50);
-                }, 1000);
-            }
-
-            function showBirthdaySurprise() {
-                setupMusic();
-                transitionTo(accessCodePage);
-            }
-
-            // NEW: Event listener for the access code submission
-            submitCodeButton.addEventListener('click', () => {
-                const enteredCode = accessCodeInput.value;
-                if (enteredCode === ACCESS_CODE) {
-                    playMusic();
-                    currentSlide = 0;
-                    showSlide(currentSlide);
-                    transitionTo(carouselPage);
-                } else {
-                    accessError.textContent = 'Incorrect code. Please try again.';
-                    accessCodeInput.value = '';
-                    // Optional: shake animation on error
-                    accessCodePage.style.animation = 'shake 0.5s';
-                    setTimeout(() => accessCodePage.style.animation = '', 500);
-                }
-            });
-            
-            nextButton.addEventListener('click', () => {
-                if (currentSlide < slides.length - 1) {
-                    currentSlide++;
-                    showSlide(currentSlide);
-                }
-            });
-
-            prevButton.addEventListener('click', () => {
-                if (currentSlide > 0) {
-                    currentSlide--;
-                    showSlide(currentSlide);
-                }
-            });
-
-            showWishButton.addEventListener('click', () => {
-                transitionTo(birthdayWishPage);
-            });
-            
-            goBackButton.addEventListener('click', () => {
-                currentSlide = 0;
-                showSlide(currentSlide);
-                transitionTo(carouselPage);
-            });
-
-            function updateCountdown() {
-                const now = new Date();
-                const timeLeft = birthdayTime - now;
-
-                if (timeLeft <= 0) {
-                    clearInterval(timeCheckInterval);
-                    showBirthdaySurprise();
-                    countdownContainer.classList.add('hidden', 'fade-out');
-                    return;
-                }
-
-                const d = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-                const h = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const m = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-                daysEl.textContent = d.toString().padStart(2, '0');
-                hoursEl.textContent = h.toString().padStart(2, '0');
-                minutesEl.textContent = m.toString().padStart(2, '0');
-                secondsEl.textContent = s.toString().padStart(2, '0');
-            }
-
-            const heartSVG = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FF69B4"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 30, density: { enable: true, value_area: 800 } },
-                    color: { value: '#FF69B4' },
-                    shape: { type: 'image', image: { src: heartSVG, width: 100, height: 100 } },
-                    opacity: { value: 0.6, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
-                    size: { value: 8, random: true, anim: { enable: true, speed: 2, size_min: 4, sync: false } },
-                    line_linked: { enable: false },
-                    move: { enable: true, speed: 1, direction: 'top', random: true, straight: false, out_mode: 'out', bounce: false }
-                },
-                interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } }, modes: {} },
-                retina_detect: true
-            });
-
-            [accessCodePage, carouselPage, birthdayWishPage].forEach(page => {
-                page.classList.add('hidden', 'fade-out');
-            });
-            countdownContainer.classList.remove('hidden', 'fade-out');
-
-            updateCountdown();
-            timeCheckInterval = setInterval(updateCountdown, 1000);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
