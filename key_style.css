@@ -1,0 +1,70 @@
+:root {
+    --bg-color: #1a0a1f;
+    --primary-color: #f72585;
+    --text-color: #feeafa;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+}
+
+.container {
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(247, 37, 133, 0.2);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    font-family: var(--font-heading);
+    color: var(--text-color);
+    font-weight: 700;
+    text-shadow: 0 0 15px var(--primary-color);
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+#timer {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    letter-spacing: 5px;
+    margin-top: 20px;
+    color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+#access-key {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-top: 20px;
+    padding: 20px 40px;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 10px;
+    display: inline-block;
+    letter-spacing: 4px;
+    box-shadow: 0 0 20px var(--primary-color);
+    user-select: all; /* Makes the key easy to copy */
+}
+
+.hidden {
+    display: none;
+}

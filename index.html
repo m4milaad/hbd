@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,63 +8,61 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <!-- The animated aurora background is handled by CSS -->
+    <audio id="birthday-song" loop>
+        <source src="hbd.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
     <div id="particles-js"></div>
 
     <div id="countdown-container" class="page-container">
         <h2>A surprise for my love is counting down...</h2>
         <div id="timer" class="art-timer">
-            <!-- Days -->
             <div class="timer-circle">
                 <svg width="160" height="160" viewBox="0 0 160 160">
                     <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
                     <circle class="progress-bar" id="days-progress" cx="80" cy="80" r="70"></circle>
                 </svg>
-                <div class="timer-text">
-                    <span id="days">00</span>
+                <div class="timer-text"><span id="days">00</span>
                     <p>Days</p>
                 </div>
             </div>
-            <!-- Hours -->
             <div class="timer-circle">
                 <svg width="160" height="160" viewBox="0 0 160 160">
                     <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
                     <circle class="progress-bar" id="hours-progress" cx="80" cy="80" r="70"></circle>
                 </svg>
-                <div class="timer-text">
-                    <span id="hours">00</span>
+                <div class="timer-text"><span id="hours">00</span>
                     <p>Hours</p>
                 </div>
             </div>
-            <!-- Minutes -->
             <div class="timer-circle">
                 <svg width="160" height="160" viewBox="0 0 160 160">
                     <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
                     <circle class="progress-bar" id="minutes-progress" cx="80" cy="80" r="70"></circle>
                 </svg>
-                <div class="timer-text">
-                    <span id="minutes">00</span>
+                <div class="timer-text"><span id="minutes">00</span>
                     <p>Minutes</p>
                 </div>
             </div>
-            <!-- Seconds -->
             <div class="timer-circle">
                 <svg width="160" height="160" viewBox="0 0 160 160">
                     <circle class="progress-bg" cx="80" cy="80" r="70"></circle>
                     <circle class="progress-bar" id="seconds-progress" cx="80" cy="80" r="70"></circle>
                 </svg>
-                <div class="timer-text">
-                    <span id="seconds">00</span>
+                <div class="timer-text"><span id="seconds">00</span>
                     <p>Seconds</p>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div id="access-code-page" class="page-container hidden">
         <h2>A Special Key is Required</h2>
         <p>Please enter the access code to unlock your surprise.</p>
@@ -72,51 +71,88 @@
         <button id="submit-code-button" class="reveal-button">Unlock</button>
     </div>
 
-    <div id="carousel-page" class="page-container hidden">
-        <div class="carousel-story-wrapper">
-            <div class="carousel-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide" data-story="That day that both of us were ill is always going to be special for me. Although both of us were ill, we were with each other throughout the entire day, and I felt totally at ease with you. The manner in which you took care of me, asking me if I was fine and whether I was okay, even when you were also not well, touched my heart a lot. Your kindness and soft care meant a great deal to me. It demonstrated how much you care, and made me feel even nearer to you. I will always treasure that day and the warmth we had, even during our weakest moments.">
-                        <img src="images/bffs.jpg" alt="Memory 1" onerror="this.onerror=null;this.src='https://placehold.co/1080x1920/e94560/white?text=Add+Your+Photo+1';">
-                        <div class="carousel-caption">The day it all began.</div>
-                    </div>
-                    <div class="carousel-slide" data-story="And sometimes I think it was good that we both were sick that day otherwise maybe...">
-                        <img src="images/bffs2.jpg" alt="Memory 2" onerror="this.onerror=null;this.src='https://placehold.co/1080x1920/0f3460/white?text=Add+Your+Photo+2';">
-                        <div class="carousel-caption">The day it all began.</div>
-                    </div>
-                    <div class="carousel-slide" data-story="This was the final day prior to summer vacation and you were sort of blue and we were with our previous friends but you look kinda you know not okay with their presence and then you and me went to cuk cafe and there we sat down at the staircase and then you put your head on my shoulder and frankly speaking, I also liked it that time I felt very much at ease like home.">
-                        <img src="images/comfy.jpg" alt="Memory 3" onerror="this.onerror=null;this.src='https://placehold.co/1080x1920/f7b2b7/black?text=Add+Your+Photo+3';">
-                        <div class="carousel-caption">Home</div>
-                    </div>
-                    <div class="carousel-slide" data-story="This picnic was incredible Like the best ever on this day we enjoyed like never before and we sang our hearts out And the whole day was like very amazing but the main magic was the night While returning from the picnic you and I were singing Sooraj Dooba Hai Yaaron and while the sun was setting down so was my heart because at that time I had to leave you behind 'cause you also had to go to your own place and I didn't want I just wanted those minutes to last as long as they could but unfortunately it ended and while returning to home I was reflecting over what happened all day And I realized that I actually love you.">
-                        <img src="images/realisation.webp" alt="Memory 4" onerror="this.onerror=null;this.src='https://placehold.co/1080x1920/f7b2b7/black?text=Add+Your+Photo+4';">
-                        <div class="carousel-caption">The Realization</div>
-                    </div>
-                    <div class="carousel-slide" data-story="This day I found guts to admit my feelings to you I was initially doubtful how you would react but I had to try. I didn't want to be left in regret so I just spoke out bluntly either it was a no or yes I had to ask">
-                        <img src="images/rltn.jpg" alt="Memory 5" onerror="this.onerror=null;this.src='https://placehold.co/1080x1920/f7b2b7/black?text=Add+Your+Photo+5';">
-                        <div class="carousel-caption">The Big Step</div>
-                    </div>
-                </div>
+    <div id="gsap-story-page" class="page-container hidden">
+        <div class="one">
+            <h1 class="one">Hi <span id="name">Nimra</span></h1>
+            <p class="two" id="greetingText">I have a little surprise for you!</p>
+        </div>
+        <div class="three">
+            <p>It's your birthday!! :D</p>
+        </div>
+        <div class="four">
+            <div class="text-box">
+                <p class="hbd-chatbox">Happy birthday to youu!! Many many happy returns of the day! May God bless you with all the happiness and success in your life!!</p>
+                <p class="fake-btn">Send</p>
             </div>
-            <div id="story-box">
-                <p id="story-text"></p>
-                <div class="carousel-controls">
-                    <button id="prev-button" class="nav-button">Previous</button>
-                    <button id="next-button" class="nav-button">Next</button>
-                    <button id="show-wish-button" class="nav-button hidden">See Your Wish</button>
-                </div>
+        </div>
+        <div class="five">
+            <p class="idea-1">That's what I was going to do.</p>
+            <p class="idea-2">But then I stopped.</p>
+            <p class="idea-3">I realised, I wanted to do something<br><strong>special</strong>.</p>
+            <p class="idea-4">Because,</p>
+            <p class="idea-5">You are Special<span>:)</span></p>
+            <p class="idea-6"><span>S</span><span>O</span></p>
+        </div>
+        <div class="six">
+            <img src="images/rltn.jpg" alt="profile" class="profile-picture" id="imagePath"
+                onerror="this.onerror=null;this.src='https://placehold.co/400x400/f72585/white?text=Your+Photo';">
+            <img src="images/hat.svg" alt="hat" class="hat"
+                onerror="this.onerror=null;this.src='https://placehold.co/100x100/000000/000000?text=hat';">
+            <div class="wish">
+                <h3 class="wish-hbd">Happy Birthday!</h3>
+                <h5 id="wishText">May you always be this happy and smiling! ;)</h5>
             </div>
+        </div>
+        <div class="seven">
+            <div class="baloons"></div>
+        </div>
+        <div class="eight"></div>
+        <div class="nine">
+            <p>Okay, now come back and tell me if you liked it.</p>
+            <p id="replay">Or click, if you want to watch it again.</p>
+            <p class="last-smile">:)</p>
+            <button id="story-to-wish-btn" class="reveal-button hidden">See Your Real Wish</button>
         </div>
     </div>
 
     <div id="birthday-wish-page" class="page-container hidden">
         <h1>Happy Birthday, My Everything!</h1>
-        <p>To the person who fills my life with endless joy, laughter, and love. Every moment with you is a precious gift. I hope your day is as beautiful and radiant as you are.</p>
+        <p>Nimoooooo  it's your birthday, and I'm happy and sad simultaneously happy because it's your day and now we
+            are the same age, both 21 years old, but sad because I can't share it with you. It's amazing to see you
+            develop, getting better in all aspects, and I feel so proud of you. You are the reason why I wish to improve
+            because my biggest dream is to be your wife. Since I fell in love with you, that dream kept getting stronger
+            with each passing day, and as time goes on, my affection for you continues to grow stronger. It's difficult
+            to stay away from you. Goodbyes when we arrive at your bus stop and not being allowed to see you on holidays
+            are too much. This Eid too, I'm not going to be able to meet you, but I would have liked to. I wished to
+            speak to you, have dinner, celebrate your birthday, cut a cake, spend the day with you, stay out until
+            evening, hug and kiss you, and have chocolate ice cream to conclude, that is the ideal date night I hope to
+            take you one day, inshallah. I've been so looking forward to your birthday, seeing how mature and grown up
+            you become each year. However, I want us to remain childish on the inside because we didn't really get a
+            chance to express those sides as we grew up. We have shared not only feelings but also lives with each
+            other, and it makes me more thankful for every moment I spent with you. We complete one another, and when
+            home gets too much at times, we have our friendship to cling onto. I'm happy that I've already told you all
+            about my family, so when I need assistance, I can go to you without any hesitation. Loving you is among the
+            biggest favors God has granted me, and the day you accepted me was the best day of my life. I've never been
+            this excited about anything more than waking up to see you every day. The day goes by so quickly when I'm
+            with you, and all I can do is hold dear the memories we make through photos, through seconds, and in my
+            heart. Each time I see our photos together, I ask myself, What good have I done in life to deserve such a
+            great blessing from Allah? And I know that I should thank Him all my life. You've become my everything, a
+            part of me, and for you, I want to improve constantly to be better, to be the best version of myself before
+            we start our life together. This year, I wish for us to have fun and enjoy ourselves, to live each moment to
+            the fullest. I wish to spend every second of my life with you because, with you, I am at peace and happy. My
+            wish is to marry you, and prior to that, I wish to be the best man I can be so we can live a beautiful and
+            happy life together. Living with has made it clear that you’ll be my seven minutes you’ll take all 7 of
+            them. Happy birthday sweetheart may God bless you with endless happiness, good health, success in all that
+            you do, and a life filled with love, peace, and prosperity. May He grant you all your heart’s desires and
+            keep you safe, happy, and smiling always.</p>
         <p>With all my love, forever and always. ❤️</p>
-        <button id="go-back-button" class="reveal-button">See the memories again</button>
+        <button id="go-back-button" class="reveal-button">Watch the story again</button>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

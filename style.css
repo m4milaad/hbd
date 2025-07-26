@@ -1,3 +1,4 @@
+/* style.css */
 :root {
     --bg-color: #1a0a1f; /* Darker, richer plum */
     --primary-color: #f72585; /* More vibrant pink */
@@ -10,6 +11,7 @@
 
 html {
     scroll-behavior: smooth;
+    box-sizing: border-box;
 }
 
 body {
@@ -23,10 +25,10 @@ body {
     height: 100vh;
     overflow: hidden;
     text-align: center;
-    position: relative; /* Needed for the pseudo-element */
+    position: relative;
 }
 
-/* NEW: Animated Aurora Background */
+/* Animated Aurora Background */
 body::before {
     content: '';
     position: absolute;
@@ -49,20 +51,19 @@ body::before {
     100% { transform: rotate(360deg) scale(1.5); }
 }
 
-
 #particles-js {
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Above aurora, below content */
+    z-index: 1;
 }
 
 .page-container {
     position: relative;
-    z-index: 2; /* Above particles */
+    z-index: 2;
     padding: 20px;
-    background: rgba(26, 10, 31, 0.6); /* More transparent to show aurora */
-    backdrop-filter: blur(12px) saturate(180%); /* Enhanced glassmorphism */
+    background: rgba(26, 10, 31, 0.6);
+    backdrop-filter: blur(12px) saturate(180%);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     max-width: 90vw;
@@ -82,14 +83,13 @@ h1 { font-size: 2.8rem; margin-bottom: 10px; }
 h2 { font-size: 2.2rem; }
 p { font-size: 1.1rem; line-height: 1.6; }
 
+/* Countdown Styles */
 #countdown-container h2 {
     font-size: 1.5rem;
     font-weight: 400;
     font-style: italic;
     opacity: 0.9;
 }
-
-/* Artistic Timer Styles (Unchanged) */
 .art-timer {
     display: flex;
     justify-content: center;
@@ -97,7 +97,6 @@ p { font-size: 1.1rem; line-height: 1.6; }
     margin-top: 30px;
     flex-wrap: wrap;
 }
-
 .timer-circle {
     position: relative;
     width: 160px;
@@ -106,20 +105,17 @@ p { font-size: 1.1rem; line-height: 1.6; }
     justify-content: center;
     align-items: center;
 }
-
 .timer-circle svg {
     position: absolute;
     top: 0;
     left: 0;
     transform: rotate(-90deg);
 }
-
 .timer-circle .progress-bg {
     fill: none;
     stroke: var(--secondary-color);
     stroke-width: 8;
 }
-
 .timer-circle .progress-bar {
     fill: none;
     stroke: var(--primary-color);
@@ -128,13 +124,11 @@ p { font-size: 1.1rem; line-height: 1.6; }
     transition: stroke-dashoffset 1s linear;
     filter: drop-shadow(0 0 5px var(--primary-color));
 }
-
 .timer-text {
     position: relative;
     z-index: 2;
     text-align: center;
 }
-
 .timer-text span {
     display: block;
     font-family: var(--font-heading);
@@ -142,7 +136,6 @@ p { font-size: 1.1rem; line-height: 1.6; }
     font-weight: bold;
     color: var(--text-color);
 }
-
 .timer-text p {
     margin: 0;
     font-size: 0.9rem;
@@ -151,8 +144,8 @@ p { font-size: 1.1rem; line-height: 1.6; }
     opacity: 0.8;
 }
 
-/* UPDATED: Button Styles */
-.reveal-button, .nav-button {
+/* Button Styles */
+.reveal-button {
     font-family: var(--font-heading);
     font-size: 1.5rem;
     padding: 15px 30px;
@@ -162,147 +155,42 @@ p { font-size: 1.1rem; line-height: 1.6; }
     color: var(--text-color);
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: pulse 2s infinite;
 }
-
-.reveal-button {
-     animation: pulse 2s infinite;
-}
-
-.reveal-button:hover, .nav-button:hover {
+.reveal-button:hover {
     background: var(--primary-color);
     color: #fff;
     border-color: var(--primary-color);
     box-shadow: 0 0 25px var(--primary-color);
     transform: translateY(-3px) scale(1.05);
 }
-
-#go-back-button {
+#go-back-button, #story-to-wish-btn {
     margin-top: 30px;
     font-size: 1.0rem;
     padding: 10px 20px;
     animation: none;
 }
-
 @keyframes pulse {
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0.7); }
     70% { transform: scale(1.02); box-shadow: 0 0 10px 20px rgba(247, 37, 133, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0); }
 }
 
+/* Page State Styles */
 .page-container.hidden, .hidden {
     display: none !important;
 }
-
 .fade-out {
     opacity: 0;
     pointer-events: none;
     transform: scale(0.95);
 }
 
-#carousel-page {
-    max-width: 95vw;
-    width: 1200px;
-}
-
-.carousel-story-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-}
-
-.carousel-container {
-    flex: 1;
-    max-width: 400px;
-    height: 80vh;
-    max-height: 700px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.carousel-track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-.carousel-slide {
-    min-width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    position: relative;
-}
-
-.carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: #000;
-}
-
-.carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 15px;
-    font-size: 1rem;
-    font-style: italic;
-}
-
-#story-box {
-    flex: 1.5;
-    text-align: left;
-    padding: 20px 30px;
-    height: 80vh;
-    max-height: 700px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: rgba(0,0,0,0.2);
-    border-radius: 10px;
-    border: 1px solid rgba(247, 37, 133, 0.2);
-}
-
-#story-text {
-    font-size: 1.2rem;
-    font-style: italic;
-    line-height: 1.7;
-    margin: 0;
-    opacity: 1;
-    transition: opacity 0.4s ease-in-out;
-    flex-grow: 1;
-    overflow-y: auto;
-}
-
-#story-text.fading {
-    opacity: 0;
-}
-
-.carousel-controls {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-.carousel-controls.first-slide {
-    justify-content: flex-end;
-}
-
-.nav-button {
-    font-size: 1.2rem;
-    padding: 12px 25px;
-}
-
-/* UPDATED: Access Code Page Styles */
+/* Access Code Styles */
 #access-code-page {
     width: 500px;
+    background: rgba(67, 13, 45, 0.7);
+    border: 1px solid var(--highlight-color);
 }
 #access-code-input {
     font-family: var(--font-body);
@@ -327,8 +215,6 @@ p { font-size: 1.1rem; line-height: 1.6; }
     min-height: 1.2em;
     font-weight: bold;
 }
-
-/* NEW: Shake animation for error */
 @keyframes shake {
   10%, 90% { transform: translate3d(-1px, 0, 0); }
   20%, 80% { transform: translate3d(2px, 0, 0); }
@@ -339,29 +225,107 @@ p { font-size: 1.1rem; line-height: 1.6; }
     animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
 }
 
+/* Styles for the glass effect on the SweetAlert2 popup */
+.glass-popup {
+  background: rgba(26, 10, 31, 0.6) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(247, 37, 133, 0.2) !important;
+}
 
-@media (max-width: 768px) {
-    .art-timer {
-        gap: 15px;
-    }
-    .timer-circle {
-        width: 120px;
-        height: 120px;
-    }
-    .timer-text span {
-        font-size: 2rem;
-    }
-    .carousel-story-wrapper {
-        flex-direction: column;
-    }
-    .carousel-container {
-        height: 50vh;
-        width: 100%;
-        max-width: 100%;
-    }
-    #story-box {
-        height: auto;
-        max-height: 35vh;
-        margin-top: 20px;
-    }
+/* GSAP Story Page Styles */
+#gsap-story-page {
+    height: 100vh;
+    width: 100vw;
+    margin: 0 auto;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    max-width: none;
+    background: transparent;
+    backdrop-filter: none;
+    border: none;
+    box-shadow: none;
+}
+#gsap-story-page > div {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 20vh;
+    color: var(--text-color);
+}
+#gsap-story-page .one { font-size: 4.5rem; }
+#gsap-story-page .two { font-size: 1.2rem; font-weight: lighter; }
+#gsap-story-page .three { font-size: 3rem; }
+#gsap-story-page .four .text-box {
+    border: 3px solid rgba(255,255,255,0.5);
+    border-radius: 5px;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    width: 600px;
+}
+#gsap-story-page .text-box p { margin: 0; text-align: left; }
+#gsap-story-page .text-box span { visibility: hidden; }
+#gsap-story-page .text-box .fake-btn {
+    background-color: var(--primary-color);
+    border-radius: 3px;
+    bottom: -50px;
+    color: #fff;
+    padding: .5rem 1rem;
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+#gsap-story-page .five p { font-size: 2rem; left: 0; position: absolute; right: 0; }
+#gsap-story-page .idea-3 strong { border-radius: 3px; display: inline-block; padding: 3px 5px; }
+#gsap-story-page .five .idea-5 { font-size: 4rem; }
+#gsap-story-page .idea-5 span, #gsap-story-page .idea-6 span, #gsap-story-page .wish-hbd span { display: inline-block; }
+#gsap-story-page .idea-6 span{ font-size: 15rem; }
+#gsap-story-page .six { position: relative; top: 10vh; z-index: 1; }
+
+/* === UPDATED PROFILE PICTURE STYLE === */
+#gsap-story-page .six img.profile-picture {
+    width: 380px;  /* Increased size for better fit */
+    height: 380px;
+    object-fit: cover;
+    border: none; /* Border is removed as the clip-path provides the edge */
+    clip-path: url(#heart-clip); /* Referencing the SVG clip path from the HTML */
+    transform: scale(1.1); /* Slightly scaling to ensure edges are clean */
+}
+
+#gsap-story-page .six .hat {
+    position: absolute;
+    width: 100px;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#gsap-story-page .baloons img { display: inline-block; position: absolute; }
+#gsap-story-page .baloons img:nth-child(even) { left: -10%; }
+#gsap-story-page .baloons img:nth-child(odd) { right: -10%; }
+#gsap-story-page .baloons img:nth-child(3n + 0) { left: 30%; }
+#gsap-story-page .seven, #gsap-story-page .eight { height: 100vh; position: fixed; top: 0; width: 100vw; }
+#gsap-story-page .eight svg { left: 0; position: absolute; top: 0; visibility: hidden; width: 25px; z-index: -1; }
+#gsap-story-page .eight svg:nth-child(1) { fill: #bd6ecf; left: 5vw; top: 7vh; }
+#gsap-story-page .eight svg:nth-child(2) { fill: #7dd175; left: 35vw; top: 23vh; }
+#gsap-story-page .eight svg:nth-child(3) { fill: #349d8b; left: 23vw; top: 33vh; }
+#gsap-story-page .eight svg:nth-child(4) { fill: #347a9d; left: 57vw; top: 43vh; }
+#gsap-story-page .eight svg:nth-child(5) { fill: #c66053; left: 7vw; top: 68vh; }
+#gsap-story-page .eight svg:nth-child(6) { fill: #bfaa40; left: 77vw; top: 42vh; }
+#gsap-story-page .eight svg:nth-child(7) { fill: #e3bae8; left: 83vw; top: 68vh; }
+#gsap-story-page .eight svg:nth-child(8) { fill: #8762cb; left: 37vw; top: 86vh; }
+#gsap-story-page .eight svg:nth-child(9) { fill: #9a90da; left: 87vw; top: 94vh; }
+#gsap-story-page .wish-hbd { font-size: 3em; margin: 0; text-transform: uppercase; }
+#gsap-story-page .wish h5 { font-size: 2rem; font-weight: lighter; margin: 10px 0 0; }
+#gsap-story-page .nine p { font-size: 2rem; font-weight: lighter; }
+#gsap-story-page #replay { cursor: pointer; z-index: 3; }
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .art-timer { gap: 15px; }
+    .timer-circle { width: 120px; height: 120px; }
+    .timer-text span { font-size: 2rem; }
+    #gsap-story-page .four .text-box { width: 90%; }
 }

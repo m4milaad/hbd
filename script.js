@@ -1,25 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const birthdayTime = new Date('2025-07-31T00:00:00');
+    const birthdayTime = new Date('2025-07-21T00:00:00');
     const ACCESS_CODE = 'HBDnimra';
 
+    // Page containers
     const countdownContainer = document.getElementById('countdown-container');
-    const carouselPage = document.getElementById('carousel-page');
-    const birthdayWishPage = document.getElementById('birthday-wish-page');
-    const goBackButton = document.getElementById('go-back-button');
-    const storyText = document.getElementById('story-text');
-    const carouselTrack = document.querySelector('.carousel-track');
-    const slides = Array.from(carouselTrack.children);
-    
     const accessCodePage = document.getElementById('access-code-page');
-    const accessCodeInput = document.getElementById('access-code-input');
-    const submitCodeButton = document.getElementById('submit-code-button');
-    const accessError = document.getElementById('access-error');
+    const gsapStoryPage = document.getElementById('gsap-story-page');
+    const birthdayWishPage = document.getElementById('birthday-wish-page');
 
-    const prevButton = document.getElementById('prev-button');
-    const nextButton = document.getElementById('next-button');
-    const showWishButton = document.getElementById('show-wish-button');
-    const controlsContainer = document.querySelector('.carousel-controls');
-
+    // Countdown elements
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
@@ -30,110 +19,75 @@ document.addEventListener('DOMContentLoaded', () => {
     const secondsProgress = document.getElementById('seconds-progress');
     const circleCircumference = 2 * Math.PI * 70;
 
+    // Access code elements
+    const accessCodeInput = document.getElementById('access-code-input');
+    const submitCodeButton = document.getElementById('submit-code-button');
+    const accessError = document.getElementById('access-error');
+
+    // GSAP Story elements
+    const replayBtn = document.getElementById("replay");
+    const storyToWishBtn = document.getElementById("story-to-wish-btn");
+    const fakeBtn = document.querySelector(".fake-btn");
+
+
+    // Final wish elements
+    const goBackButton = document.getElementById('go-back-button');
+
+    // Audio element
+    const birthdaySong = document.getElementById('birthday-song');
+
     let timeCheckInterval;
-    let musicSynth;
-    let currentSlide = 0;
+    let animationTl; // To hold the GSAP timeline
 
-    function setupMusic() {
-        if (musicSynth) return;
-        musicSynth = new Tone.PolySynth(Tone.Synth, {
-            oscillator: { type: 'fmsine' },
-            envelope: { attack: 0.1, decay: 0.2, sustain: 0.5, release: 1 }
-        }).toDestination();
-        musicSynth.volume.value = -10;
-    }
-    
     function playMusic() {
-        if (Tone.context.state !== 'running') {
-            Tone.start();
+        if (birthdaySong) {
+            birthdaySong.play().catch(error => console.log("Music play failed:", error));
         }
-        const melody = [
-            { note: 'C4', duration: '8n', time: 0 }, { note: 'C4', duration: '8n', time: 0.25 }, { note: 'D4', duration: '4n', time: 0.5 }, { note: 'C4', duration: '4n', time: 1 }, { note: 'F4', duration: '4n', time: 1.5 }, { note: 'E4', duration: '2n', time: 2 },
-            { note: 'C4', duration: '8n', time: 3 }, { note: 'C4', duration: '8n', time: 3.25 }, { note: 'D4', duration: '4n', time: 3.5 }, { note: 'C4', duration: '4n', time: 4 }, { note: 'G4', duration: '4n', time: 4.5 }, { note: 'F4', duration: '2n', time: 5 },
-            { note: 'C4', duration: '8n', time: 6 }, { note: 'C4', duration: '8n', time: 6.25 }, { note: 'C5', duration: '4n', time: 6.5 }, { note: 'A4', duration: '4n', time: 7 }, { note: 'F4', duration: '4n', time: 7.5 }, { note: 'E4', duration: '4n', time: 8 }, { note: 'D4', duration: '2n', time: 8.5 },
-            { note: 'Bb4', duration: '8n', time: 9.5 }, { note: 'Bb4', duration: '8n', time: 9.75 }, { note: 'A4', duration: '4n', time: 10 }, { note: 'F4', duration: '4n', time: 10.5 }, { note: 'G4', duration: '4n', time: 11 }, { note: 'F4', duration: '2n', time: 11.5 }
-        ];
-        new Tone.Part((time, value) => { musicSynth.triggerAttackRelease(value.note, value.duration, time); }, melody).start(0);
-        Tone.Transport.start();
-    }
-
-    function showSlide(index) {
-        const activeSlide = slides[index];
-        carouselTrack.style.transform = `translateX(-${index * 100}%)`;
-
-        const newStory = activeSlide.dataset.story || "";
-        storyText.classList.add('fading');
-        setTimeout(() => {
-            storyText.textContent = newStory;
-            storyText.classList.remove('fading');
-        }, 400);
-
-        prevButton.classList.toggle('hidden', index === 0);
-        nextButton.classList.toggle('hidden', index === slides.length - 1);
-        showWishButton.classList.toggle('hidden', index !== slides.length - 1);
-        
-        controlsContainer.classList.toggle('first-slide', index === 0);
     }
 
     function transitionTo(pageToShow) {
-        const pages = [countdownContainer, accessCodePage, carouselPage, birthdayWishPage];
+        const pages = [countdownContainer, accessCodePage, gsapStoryPage, birthdayWishPage];
         pages.forEach(page => {
             if (page !== pageToShow) {
                 page.classList.add('fade-out');
-                setTimeout(() => page.classList.add('hidden'), 1500);
+                setTimeout(() => page.classList.add('hidden'), 1000);
             }
         });
         
         setTimeout(() => {
             pageToShow.classList.remove('hidden');
             setTimeout(() => pageToShow.classList.remove('fade-out'), 50);
-        }, 1000);
+        }, 800);
     }
 
-    function showBirthdaySurprise() {
-        setupMusic();
-        transitionTo(accessCodePage);
+    function promptForMusicAndStart() {
+        Swal.fire({
+            title: 'Do you want to play music in the background?',
+            text: "It's recommended for the full experience!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'var(--primary-color)',
+            cancelButtonColor: 'var(--secondary-color)',
+            confirmButtonText: 'Yes, play it!',
+            customClass: {
+                popup: 'glass-popup'
+            },
+            background: 'transparent',
+            color: 'var(--text-color)'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                playMusic();
+            }
+            transitionTo(gsapStoryPage);
+            setTimeout(() => {
+                if (animationTl) {
+                    animationTl.restart();
+                } else {
+                    animationTimeline();
+                }
+            }, 1000);
+        });
     }
-
-    submitCodeButton.addEventListener('click', () => {
-        const enteredCode = accessCodeInput.value;
-        if (enteredCode === ACCESS_CODE) {
-            playMusic();
-            currentSlide = 0;
-            showSlide(currentSlide);
-            transitionTo(carouselPage);
-        } else {
-            accessError.textContent = 'Incorrect code. Please try again.';
-            accessCodeInput.value = '';
-            // UPDATED: Use class for shake animation
-            accessCodePage.classList.add('shake');
-            setTimeout(() => accessCodePage.classList.remove('shake'), 820);
-        }
-    });
-    
-    nextButton.addEventListener('click', () => {
-        if (currentSlide < slides.length - 1) {
-            currentSlide++;
-            showSlide(currentSlide);
-        }
-    });
-
-    prevButton.addEventListener('click', () => {
-        if (currentSlide > 0) {
-            currentSlide--;
-            showSlide(currentSlide);
-        }
-    });
-
-    showWishButton.addEventListener('click', () => {
-        transitionTo(birthdayWishPage);
-    });
-    
-    goBackButton.addEventListener('click', () => {
-        currentSlide = 0;
-        showSlide(currentSlide);
-        transitionTo(carouselPage);
-    });
 
     function updateCountdown() {
         const now = new Date();
@@ -141,8 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (timeLeft <= 0) {
             clearInterval(timeCheckInterval);
-            showBirthdaySurprise();
-            countdownContainer.classList.add('hidden', 'fade-out');
+            transitionTo(accessCodePage);
             return;
         }
 
@@ -156,42 +109,179 @@ document.addEventListener('DOMContentLoaded', () => {
         minutesEl.textContent = m.toString().padStart(2, '0');
         secondsEl.textContent = s.toString().padStart(2, '0');
 
-        const daysInYear = 365;
-        const daysPercent = d / daysInYear;
-        const hoursPercent = h / 24;
-        const minutesPercent = m / 60;
-        const secondsPercent = s / 60;
-
-        daysProgress.style.strokeDashoffset = circleCircumference * (1 - daysPercent);
-        hoursProgress.style.strokeDashoffset = circleCircumference * (1 - hoursPercent);
-        minutesProgress.style.strokeDashoffset = circleCircumference * (1 - minutesPercent);
-        secondsProgress.style.strokeDashoffset = circleCircumference * (1 - secondsPercent);
+        const updateProgress = (element, value, max) => {
+            const percent = value / max;
+            element.style.strokeDashoffset = circleCircumference * (1 - percent);
+        };
+        
+        updateProgress(daysProgress, d, 365);
+        updateProgress(hoursProgress, h, 24);
+        updateProgress(minutesProgress, m, 60);
+        updateProgress(secondsProgress, s, 60);
     }
 
+    const animationTimeline = () => {
+        const textBoxChars = document.querySelector(".hbd-chatbox");
+        const hbd = document.querySelector(".wish-hbd");
+
+        textBoxChars.innerHTML = `<span>${textBoxChars.innerHTML.split("").join("</span><span>")}</span>`;
+        hbd.innerHTML = `<span>${hbd.innerHTML.split("").join("</span><span>")}</span>`;
+
+        const ideaTextTrans = {
+            opacity: 0, y: -20, rotationX: 5, skewX: "15deg"
+        };
+        const ideaTextTransLeave = {
+            opacity: 0, y: 20, rotationY: 5, skewX: "-15deg"
+        };
+
+        animationTl = gsap.timeline({
+            onComplete: () => {
+                storyToWishBtn.classList.remove('hidden');
+            }
+        });
+
+        animationTl.to("#gsap-story-page", { autoAlpha: 1, duration: 0.1 })
+            .from(".one", { duration: 0.7, autoAlpha: 0, y: 10 })
+            .from(".two", { duration: 0.4, autoAlpha: 0, y: 10 })
+            .to(".one, .two", { duration: 0.7, autoAlpha: 0, y: 10 }, "+=2.5")
+            .from(".three", { duration: 0.7, autoAlpha: 0, y: 10 })
+            .to(".three", { duration: 0.7, autoAlpha: 0, y: 10 }, "+=2")
+            .from(".four", { duration: 0.7, scale: 0.2, autoAlpha: 0 })
+            .from(".fake-btn", { duration: 0.3, scale: 0.2, autoAlpha: 0 })
+            .to(".hbd-chatbox span", { autoAlpha: 1, stagger: 0.05 })
+            .add("hbd-sent")
+            .to(".fake-btn", { duration: 0.1, backgroundColor: "rgb(127, 206, 248)" })
+            .to(".four", { duration: 0.5, scale: 0.2, autoAlpha: 0, y: -150 }, "+=1")
+            .from(".idea-1", { duration: 0.7, ...ideaTextTrans })
+            .to(".idea-1", { duration: 0.7, ...ideaTextTransLeave }, "+=2")
+            .from(".idea-2", { duration: 0.7, ...ideaTextTrans })
+            .to(".idea-2", { duration: 0.7, ...ideaTextTransLeave }, "+=2")
+            .from(".idea-3", { duration: 0.7, ...ideaTextTrans })
+            .to(".idea-3 strong", { duration: 0.5, scale: 1.2, x: 10, backgroundColor: "#28a7f8", color: "#fff" })
+            .to(".idea-3", { duration: 0.7, ...ideaTextTransLeave }, "+=2")
+            .from(".idea-4", { duration: 0.7, ...ideaTextTrans })
+            .to(".idea-4", { duration: 0.7, ...ideaTextTransLeave }, "+=2")
+            .from(".idea-5", { duration: 0.7, rotationX: 15, rotationZ: -10, skewY: "-5deg", y: 50, z: 10, autoAlpha: 0 }, "+=1")
+            .to(".idea-5 span", { duration: 0.7, rotation: 90, x:40, scale: 1.2 }, "+=1")
+            .to(".idea-5", { duration: 0.7, scale: 0.2, autoAlpha: 0 }, "+=2")
+            .from(".idea-6 span", { duration: 0.8, scale: 3, autoAlpha: 0, rotation: 15, ease: "expo.out", stagger: 0.2 })
+            .to(".idea-6 span", { duration: 0.8, scale: 3, autoAlpha: 0, rotation: -15, ease: "expo.out", stagger: 0.2 }, "+=1")
+            .fromTo(".baloons img", { y: 1400 }, { duration: 2.5, y: -1000, autoAlpha: 1, stagger: 0.2 })
+            .from(".profile-picture", { duration: 0.5, scale: 3.5, autoAlpha: 0, x: 25, y: -25, rotationZ: -45 }, "-=2")
+            .from(".hat", { duration: 0.5, x: -100, y: 350, rotation: -180, autoAlpha: 0 })
+            .from(".wish-hbd span", { duration: 0.7, autoAlpha: 0, y: -50, rotation: 150, skewX: "30deg", ease: "elastic.out(1, 0.5)", stagger: 0.1 })
+            .to(".wish-hbd span", { duration: 0.7, scale: 1, rotationY: 0, color: "var(--primary-color)", ease: "expo.out", stagger: 0.1 }, "party")
+            .from(".wish h5", { duration: 0.5, autoAlpha: 0, y: 10, skewX: "-15deg" }, "party")
+            .fromTo(".eight svg", { autoAlpha: 0, scale: 1 }, { duration: 1.5, autoAlpha: 1, scale: 80, ease: "expo.out", stagger: { each: 0.3, repeat: 3, repeatDelay: 1.4 } })
+            .to(".six", { duration: 0.5, autoAlpha: 0, y: 30, zIndex: "-1" })
+            .from(".nine p", { duration: 1, ...ideaTextTrans, stagger: 1.2 })
+            .to(".last-smile", { duration: 0.5, rotation: 90 }, "+=1");
+    };
+    
     const heartSVG = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f72585"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 30, density: { enable: true, value_area: 800 } },
-            color: { value: '#f72585' },
-            shape: { type: 'image', image: { src: heartSVG, width: 100, height: 100 } },
-            opacity: { value: 0.6, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
-            size: { value: 8, random: true, anim: { enable: true, speed: 2, size_min: 4, sync: false } },
-            line_linked: { enable: false },
-            move: { enable: true, speed: 1, direction: 'top', random: true, straight: false, out_mode: 'out', bounce: false }
-        },
-        interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } }, modes: {} },
-        retina_detect: true
-    });
 
-    [accessCodePage, carouselPage, birthdayWishPage].forEach(page => {
-        page.classList.add('hidden', 'fade-out');
-    });
-    countdownContainer.classList.remove('hidden', 'fade-out');
+    // --- DYNAMIC ELEMENT CREATION ---
+    function createBalloons(count) {
+        const baloonsContainer = document.querySelector('.baloons');
+        for (let i = 0; i < count; i++) {
+            const balloon = document.createElement('img');
+            balloon.src = `images/ballon${(i % 3) + 1}.svg`;
+            balloon.alt = "";
+            balloon.onerror = function() { this.style.display='none' };
+            baloonsContainer.appendChild(balloon);
+        }
+    }
 
-    [daysProgress, hoursProgress, minutesProgress, secondsProgress].forEach(bar => {
-        bar.style.strokeDasharray = circleCircumference;
-    });
+    function createConfetti(count) {
+        const confettiContainer = document.querySelector('.eight');
+        for (let i = 0; i < count; i++) {
+            const confetti = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            confetti.setAttribute('viewBox', '0 0 40 40');
+            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            circle.setAttribute('cx', '20');
+            circle.setAttribute('cy', '20');
+            circle.setAttribute('r', '20');
+            confetti.appendChild(circle);
+            confettiContainer.appendChild(confetti);
+        }
+    }
+    
+    function init() {
+        // Setup Event Listeners
+        const handleAccessCode = () => {
+            if (accessCodeInput.value === ACCESS_CODE) {
+                promptForMusicAndStart();
+            } else {
+                accessError.textContent = 'Incorrect code. Please try again.';
+                accessCodeInput.value = '';
+                accessCodePage.classList.add('shake');
+                setTimeout(() => accessCodePage.classList.remove('shake'), 820);
+            }
+        };
 
-    updateCountdown();
-    timeCheckInterval = setInterval(updateCountdown, 1000);
+        submitCodeButton.addEventListener('click', handleAccessCode);
+        accessCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleAccessCode();
+            }
+        });
+        
+        replayBtn.addEventListener("click", () => {
+            storyToWishBtn.classList.add('hidden');
+            animationTl.restart();
+        });
+
+        storyToWishBtn.addEventListener("click", () => {
+            transitionTo(birthdayWishPage);
+        });
+        
+        goBackButton.addEventListener("click", () => {
+            transitionTo(gsapStoryPage);
+            if (animationTl) {
+                storyToWishBtn.classList.add('hidden');
+                animationTl.restart();
+            }
+        });
+        
+        fakeBtn.addEventListener("click", () => {
+            animationTl.seek("hbd-sent");
+        });
+
+
+        // Setup ParticlesJS
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 30, density: { enable: true, value_area: 800 } },
+                color: { value: '#f72585' },
+                shape: { type: 'image', image: { src: heartSVG, width: 100, height: 100 } },
+                opacity: { value: 0.6, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
+                size: { value: 8, random: true, anim: { enable: true, speed: 2, size_min: 4, sync: false } },
+                line_linked: { enable: false },
+                move: { enable: true, speed: 1, direction: 'top', random: true, straight: false, out_mode: 'out', bounce: false }
+            },
+            interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false } }, modes: {} },
+            retina_detect: true
+        });
+
+        // Initial page setup
+        [accessCodePage, gsapStoryPage, birthdayWishPage].forEach(page => {
+            page.classList.add('hidden', 'fade-out');
+        });
+        countdownContainer.classList.remove('hidden', 'fade-out');
+
+        [daysProgress, hoursProgress, minutesProgress, secondsProgress].forEach(bar => {
+            bar.style.strokeDasharray = circleCircumference;
+        });
+        
+        // Create dynamic elements
+        createBalloons(30);
+        createConfetti(9);
+        
+        // Start countdown
+        updateCountdown();
+        timeCheckInterval = setInterval(updateCountdown, 1000);
+    }
+
+    // Initialize the application
+    init();
 });
