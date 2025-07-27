@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const birthdayTime = new Date('2025-07-21T00:00:00');
+    const birthdayTime = new Date('2025-07-31T00:00:00');
     const ACCESS_CODE = 'HBDnimra';
 
     // Page containers
