@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const birthdayTime = new Date('2025-07-31T00:00:00');
+    const birthdayTime = new Date('2025-07-21T00:00:00');
     const ACCESS_CODE = 'HBDnimra';
 
     // Page containers
@@ -174,8 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .from(".wish h5", { duration: 0.5, autoAlpha: 0, y: 10, skewX: "-15deg" }, "party")
             .fromTo(".eight svg", { autoAlpha: 0, scale: 1 }, { duration: 1.5, autoAlpha: 1, scale: 80, ease: "expo.out", stagger: { each: 0.3, repeat: 3, repeatDelay: 1.4 } })
             .to(".six", { duration: 0.5, autoAlpha: 0, y: 30, zIndex: "-1" })
-            .from(".nine p", { duration: 1, ...ideaTextTrans, stagger: 1.2 })
-            .to(".last-smile", { duration: 0.5, rotation: 90 }, "+=1");
+            .from(".nine p", { duration: 1, ...ideaTextTrans, stagger: 1.2 });
     };
     
     const heartSVG = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f72585"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`;
