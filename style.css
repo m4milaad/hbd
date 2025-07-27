@@ -329,3 +329,8 @@ p { font-size: 1.1rem; line-height: 1.6; }
     .timer-text span { font-size: 2rem; }
     #gsap-story-page .four .text-box { width: 90%; }
 }
+#birthday-wish-page {
+    overflow-y: auto; /* Allows vertical scrolling */
+    max-height: 85vh; /* Sets a max height before scrolling kicks in */
+    padding-right: 25px; /* Adds space for the scrollbar */
+}
