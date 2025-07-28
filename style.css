@@ -322,15 +322,121 @@ p { font-size: 1.1rem; line-height: 1.6; }
 #gsap-story-page .nine p { font-size: 2rem; font-weight: lighter; }
 #gsap-story-page #replay { cursor: pointer; z-index: 3; }
 
-/* Media Queries */
-@media screen and (max-width: 768px) {
-    .art-timer { gap: 15px; }
-    .timer-circle { width: 120px; height: 120px; }
-    .timer-text span { font-size: 2rem; }
-    #gsap-story-page .four .text-box { width: 90%; }
-}
+/* Birthday Wish Page */
 #birthday-wish-page {
     overflow-y: auto; /* Allows vertical scrolling */
     max-height: 85vh; /* Sets a max height before scrolling kicks in */
     padding-right: 25px; /* Adds space for the scrollbar */
+}
+
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .page-container {
+        padding: 15px;
+        max-width: 95vw;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.8rem; }
+    p { font-size: 1rem; }
+
+    #countdown-container h2 {
+        font-size: 1.2rem;
+    }
+
+    .art-timer {
+        gap: 10px;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .timer-circle {
+        width: 100px;
+        height: 100px;
+    }
+    .timer-text span {
+        font-size: 1.8rem;
+    }
+    .timer-text p {
+        font-size: 0.7rem;
+    }
+    .timer-circle .progress-bg, .timer-circle .progress-bar {
+        stroke-width: 6;
+    }
+    .timer-circle svg {
+        width: 100px;
+        height: 100px;
+    }
+
+
+    .reveal-button {
+        font-size: 1.2rem;
+        padding: 12px 25px;
+    }
+
+    #access-code-page {
+        width: 90vw;
+    }
+    #access-code-input {
+        font-size: 1.2rem;
+        width: 90%;
+    }
+
+    #gsap-story-page .one { font-size: 2.5rem; }
+    #gsap-story-page .two { font-size: 1rem; }
+    #gsap-story-page .three { font-size: 2rem; }
+    #gsap-story-page .four .text-box {
+        width: 90%;
+        padding: 8px;
+    }
+    #gsap-story-page .text-box p {
+        font-size: 0.9rem;
+    }
+
+    #gsap-story-page .five p { font-size: 1.5rem; }
+    #gsap-story-page .five .idea-5 { font-size: 2.5rem; }
+    #gsap-story-page .idea-6 span { font-size: 8rem; }
+
+    #gsap-story-page .six img.profile-picture {
+        width: 280px;
+        height: 280px;
+    }
+    #gsap-story-page .six .hat {
+        width: 80px;
+        top: -60px;
+    }
+    #gsap-story-page .wish-hbd { font-size: 2em; }
+    #gsap-story-page .wish h5 { font-size: 1.5rem; }
+    #gsap-story-page .nine p { font-size: 1.5rem; }
+
+    #birthday-wish-page {
+        padding: 15px;
+        padding-right: 20px;
+    }
+    #birthday-wish-page h1 {
+        font-size: 2rem;
+    }
+    #birthday-wish-page p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .art-timer {
+        flex-wrap: wrap;
+    }
+    .timer-circle {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+    }
+
+    #gsap-story-page .one { font-size: 2rem; }
+    #gsap-story-page .six img.profile-picture {
+        width: 220px;
+        height: 220px;
+    }
+    #gsap-story-page .six .hat {
+        width: 60px;
+        top: -40px;
+    }
 }
