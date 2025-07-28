@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access Key</title>
+    <title>Unlock Your Key</title>
     <link rel="stylesheet" href="key_style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <h1>The Access Key is Ready</h1>
-        <p>Use this key to unlock the surprise on the main page</p>
-        <div id="access-key">HBDnimra</div>
+        <h1>A Special Key, Just For You</h1>
+        <p>This key unlocks a personalized message. Scratch the panel below to reveal your unique access code.</p>
+
+        <div class="scratch-container">
+            <canvas id="overlayCanvas"></canvas>
+            
+            <div class="revealed-content">
+                <p>Your Access Code:</p>
+                <h2 class="access-code">HBDnimra</h2>
+            </div>
+        </div>
     </div>
+
+    <script src="key_script.js"></script>
 </body>
 </html>
