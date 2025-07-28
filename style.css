@@ -281,7 +281,10 @@ p { font-size: 1.1rem; line-height: 1.6; }
 }
 #gsap-story-page .one { font-size: 4.5rem; }
 #gsap-story-page .two { font-size: 1.2rem; font-weight: lighter; }
-#gsap-story-page .three { font-size: 3rem; }
+/* THIS IS THE FIX! */
+#gsap-story-page .three p {
+    font-size: 3rem !important;
+}
 #gsap-story-page .four .text-box {
     border: 3px solid rgba(255,255,255,0.5);
     border-radius: 5px;
@@ -327,7 +330,7 @@ p { font-size: 1.1rem; line-height: 1.6; }
 }
 #gsap-story-page .baloons img { display: inline-block; position: absolute; }
 #gsap-story-page .baloons img:nth-child(even) { left: -10%; }
-#gsap-story-page .baloons img:nth-child(odd) { right: -10%; }
+#gsap-story-page .baloons img:nth-child(odd) { right: 0; }
 #gsap-story-page .baloons img:nth-child(3n + 0) { left: 30%; }
 #gsap-story-page .seven, #gsap-story-page .eight { height: 100vh; position: fixed; top: 0; width: 100vw; }
 #gsap-story-page .eight svg { left: 0; position: absolute; top: 0; visibility: hidden; width: 25px; z-index: -1; }
@@ -400,7 +403,8 @@ p { font-size: 1.1rem; line-height: 1.6; }
 
     #gsap-story-page .one { font-size: 2.5rem; }
     #gsap-story-page .two { font-size: 1rem; }
-    #gsap-story-page .three { font-size: 2rem; }
+    /* Overwrite for medium screens */
+    #gsap-story-page .three p { font-size: 3rem !important; }
     #gsap-story-page .four .text-box {
         width: 90%;
         padding: 8px;
@@ -457,6 +461,7 @@ p { font-size: 1.1rem; line-height: 1.6; }
     }
 
     #gsap-story-page .one { font-size: 2rem; }
+    #gsap-story-page .three p { font-size: 3rem !important; }
     #gsap-story-page .six img.profile-picture {
         width: 220px;
         height: 220px;
