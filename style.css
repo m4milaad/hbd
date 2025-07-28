@@ -1,4 +1,6 @@
-/* style.css */
+/* =================================================================
+   ROOT VARIABLES & BASIC SETUP
+================================================================= */
 :root {
     --bg-color: #1a0a1f; /* Darker, richer plum */
     --primary-color: #f72585; /* More vibrant pink */
@@ -28,7 +30,9 @@ body {
     position: relative;
 }
 
-/* Animated Aurora Background */
+/* =================================================================
+   ANIMATED & PARTICLE BACKGROUNDS
+================================================================= */
 body::before {
     content: '';
     position: absolute;
@@ -58,6 +62,9 @@ body::before {
     z-index: 1;
 }
 
+/* =================================================================
+   GENERAL PAGE & TYPOGRAPHY STYLES
+================================================================= */
 .page-container {
     position: relative;
     z-index: 2;
@@ -83,7 +90,9 @@ h1 { font-size: 2.8rem; margin-bottom: 10px; }
 h2 { font-size: 2.2rem; }
 p { font-size: 1.1rem; line-height: 1.6; }
 
-/* Countdown Styles */
+/* =================================================================
+   COUNTDOWN TIMER STYLES
+================================================================= */
 #countdown-container h2 {
     font-size: 1.5rem;
     font-weight: 400;
@@ -109,6 +118,8 @@ p { font-size: 1.1rem; line-height: 1.6; }
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
     transform: rotate(-90deg);
 }
 .timer-circle .progress-bg {
@@ -144,7 +155,9 @@ p { font-size: 1.1rem; line-height: 1.6; }
     opacity: 0.8;
 }
 
-/* Button Styles */
+/* =================================================================
+   BUTTON & INTERACTION STYLES
+================================================================= */
 .reveal-button {
     font-family: var(--font-heading);
     font-size: 1.5rem;
@@ -176,7 +189,9 @@ p { font-size: 1.1rem; line-height: 1.6; }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0); }
 }
 
-/* Page State Styles */
+/* =================================================================
+   PAGE STATE & ACCESS CODE STYLES
+================================================================= */
 .page-container.hidden, .hidden {
     display: none !important;
 }
@@ -186,7 +201,6 @@ p { font-size: 1.1rem; line-height: 1.6; }
     transform: scale(0.95);
 }
 
-/* Access Code Styles */
 #access-code-page {
     width: 500px;
     background: rgba(67, 13, 45, 0.7);
@@ -225,7 +239,9 @@ p { font-size: 1.1rem; line-height: 1.6; }
     animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
 }
 
-/* Styles for the glass effect on the SweetAlert2 popup */
+/* =================================================================
+   POPUP & BIRTHDAY WISH PAGE
+================================================================= */
 .glass-popup {
   background: rgba(26, 10, 31, 0.6) !important;
   backdrop-filter: blur(12px) saturate(180%) !important;
@@ -234,7 +250,15 @@ p { font-size: 1.1rem; line-height: 1.6; }
   border: 1px solid rgba(247, 37, 133, 0.2) !important;
 }
 
-/* GSAP Story Page Styles */
+#birthday-wish-page {
+    overflow-y: auto; /* Allows vertical scrolling */
+    max-height: 85vh; /* Sets a max height before scrolling kicks in */
+    padding-right: 25px; /* Adds space for the scrollbar */
+}
+
+/* =================================================================
+   GSAP STORY PAGE STYLES
+================================================================= */
 #gsap-story-page {
     height: 100vh;
     width: 100vw;
@@ -285,14 +309,13 @@ p { font-size: 1.1rem; line-height: 1.6; }
 #gsap-story-page .idea-6 span{ font-size: 15rem; }
 #gsap-story-page .six { position: relative; top: 10vh; z-index: 1; }
 
-/* === UPDATED PROFILE PICTURE STYLE === */
 #gsap-story-page .six img.profile-picture {
-    width: 380px;  /* Increased size for better fit */
+    width: 380px;
     height: 380px;
     object-fit: cover;
-    border: none; /* Border is removed as the clip-path provides the edge */
-    clip-path: url(#heart-clip); /* Referencing the SVG clip path from the HTML */
-    transform: scale(1.1); /* Slightly scaling to ensure edges are clean */
+    border: none;
+    clip-path: url(#heart-clip);
+    transform: scale(1.1);
 }
 
 #gsap-story-page .six .hat {
@@ -318,18 +341,19 @@ p { font-size: 1.1rem; line-height: 1.6; }
 #gsap-story-page .eight svg:nth-child(8) { fill: #8762cb; left: 37vw; top: 86vh; }
 #gsap-story-page .eight svg:nth-child(9) { fill: #9a90da; left: 87vw; top: 94vh; }
 #gsap-story-page .wish-hbd { font-size: 3em; margin: 0; text-transform: uppercase; }
+/* This CSS rule adds a space after the 'y' in 'Happy'. The best fix is to use Happy&nbsp;Birthday! in the HTML file. */
+#gsap-story-page .wish-hbd span:nth-child(5) {
+    margin-right: 15px;
+}
 #gsap-story-page .wish h5 { font-size: 2rem; font-weight: lighter; margin: 10px 0 0; }
 #gsap-story-page .nine p { font-size: 2rem; font-weight: lighter; }
 #gsap-story-page #replay { cursor: pointer; z-index: 3; }
 
-/* Birthday Wish Page */
-#birthday-wish-page {
-    overflow-y: auto; /* Allows vertical scrolling */
-    max-height: 85vh; /* Sets a max height before scrolling kicks in */
-    padding-right: 25px; /* Adds space for the scrollbar */
-}
+/* =================================================================
+   MEDIA QUERIES FOR RESPONSIVENESS
+================================================================= */
 
-/* Media Queries */
+/* Medium screens (tablets) */
 @media screen and (max-width: 768px) {
     .page-container {
         padding: 15px;
@@ -345,9 +369,7 @@ p { font-size: 1.1rem; line-height: 1.6; }
     }
 
     .art-timer {
-        gap: 10px;
-        flex-direction: row;
-        justify-content: center;
+        gap: 15px;
     }
     .timer-circle {
         width: 100px;
@@ -362,11 +384,6 @@ p { font-size: 1.1rem; line-height: 1.6; }
     .timer-circle .progress-bg, .timer-circle .progress-bar {
         stroke-width: 6;
     }
-    .timer-circle svg {
-        width: 100px;
-        height: 100px;
-    }
-
 
     .reveal-button {
         font-size: 1.2rem;
@@ -420,14 +437,23 @@ p { font-size: 1.1rem; line-height: 1.6; }
     }
 }
 
+/* Small screens (smartphones) */
 @media screen and (max-width: 480px) {
     .art-timer {
+        gap: 10px;
         flex-wrap: wrap;
+        justify-content: center;
     }
     .timer-circle {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
         margin-bottom: 10px;
+    }
+    .timer-text span {
+        font-size: 1.5rem;
+    }
+    .timer-text p {
+        font-size: 0.6rem;
     }
 
     #gsap-story-page .one { font-size: 2rem; }
